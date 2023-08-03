@@ -9,13 +9,13 @@ def stream_gpt(messages, model):
             if 'content' in line['choices'][0]['delta']:
                 yield line['choices'][0]['delta']['content']
 
-dir_path = "./llama.cpp/models/"
+dir_path = "./models/"
 files = os.listdir(dir_path)
 openai_models = ["gpt-3.5-turbo", "gpt-3.5-turbo-0613", "gpt-4"]
 llm_path = st.selectbox("Select an LLM", options=files + openai_models)
 is_openai = "gpt" in llm_path
 if is_openai:
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key = os.getenv("OPENAI_KEY")
 else:
     llm = Llama(model_path= dir_path + llm_path, n_ctx=2048, n_threads=12, n_gpu_layers=1)
    
